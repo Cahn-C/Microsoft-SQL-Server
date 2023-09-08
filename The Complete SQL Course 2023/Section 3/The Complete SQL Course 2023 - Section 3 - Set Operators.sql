@@ -36,5 +36,3 @@ select customer_id from oes.orders
 select product_id from oes.products
 except
 select product_id from oes.inventories
-
-select * from oes.inventories order by product_id desc
