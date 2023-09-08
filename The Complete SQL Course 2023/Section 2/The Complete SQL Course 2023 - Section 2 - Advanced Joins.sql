@@ -27,22 +27,22 @@ where c.country_name = 'australia'
 
 
 -- Returns the total quantity ordered of each product in each category
-select p.product_name, pc.category_name, sum(i.quantity_on_hand) as total_quantity
+select p.product_name, pc.category_name, sum(oi.quantity) as total_quantity
 from oes.products p
 join oes.product_categories pc
 on p.category_id = pc.category_id
-join oes.inventories i
-on i.product_id = p.product_id
-group by p.product_name, pc.category_name
-order by pc.category_name asc, p.product_name asc
+join oes.order_items oi
+on oi.product_id = p.product_id
+group by pc.category_name, p.product_name
+order by pc.category_name, p.product_name
 
 
 -- Returns the total quantity ordered of all products in each category
-select p.product_name, pc.category_name, isnull(sum(i.quantity_on_hand), 0) as total_quantity
+select p.product_name, pc.category_name, isnull(sum(oi.quantity), 0) as total_quantity
 from oes.products p
 left join oes.product_categories pc
 on p.category_id = pc.category_id
-left join oes.inventories i
-on i.product_id = p.product_id
-group by p.product_name, pc.category_name
-order by pc.category_name asc, p.product_name asc
+left join oes.order_items oi
+on oi.product_id = p.product_id
+group by pc.category_name, p.product_name
+order by pc.category_name, p.product_name
