@@ -9,14 +9,14 @@ from hcm.employees
 
 
 -- Extracting the genus name from the "scientific_name" column ==> "Pygoscelis": Genus Name - "adeliae": Species Name
-select substring(scientific_name, 1, charindex(' ', scientific_name) -1) as genus_name
+select scientific_name, substring(scientific_name, 1, charindex(' ', scientific_name) -1) as genus_name
 from bird.antarctic_species
 
 select * from bird.antarctic_species
 
 
 -- Extracting the species name from the "scientific_name" column ==> "Pygoscelis": Genus Name - "adeliae": Species Name
-select substring(scientific_name, charindex(' ', scientific_name), len(scientific_name)) as species_name
+select scientific_name, substring(scientific_name, charindex(' ', scientific_name), len(scientific_name)) as species_name
 from bird.antarctic_species
 
 select * from bird.antarctic_species
