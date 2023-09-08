@@ -37,4 +37,6 @@ select product_id from oes.products
 except
 select product_id from oes.inventories
 
+
+-- Checks the greatest product id to confirm the results to the above query
 select * from oes.inventories order by product_id desc
