@@ -11,10 +11,10 @@ select common_name, scientific_name, sighting_location, sighting_date from bird.
 
 
 -- Returns all unique combinations of speices from states California & Arizona
-select common_name, scientific_name, location_of_sighting, sighting_date, 'California' as state from bird.california_sightings
+select scientific_name, 'California' as state from bird.california_sightings
 union
-select common_name, scientific_name, sighting_location, sighting_date, 'Arizona' as state from bird.arizona_sightings
-order by scientific_name, state
+select scientific_name, 'Arizona' as state from bird.arizona_sightings
+order by state, scientific_name
 
 
 -- Returns all unique combinations of speices from states California, Arizona & Florida
@@ -37,6 +37,4 @@ select product_id from oes.products
 except
 select product_id from oes.inventories
 
-
--- Checks the greatest product id to confirm the results to the above query
 select * from oes.inventories order by product_id desc
