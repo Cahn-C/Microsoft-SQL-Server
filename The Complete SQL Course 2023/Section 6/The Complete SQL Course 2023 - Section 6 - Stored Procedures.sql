@@ -80,6 +80,7 @@ COMMIT TRANSACTION
 
 GO
 
+-- Withdraw $100 from user 2 and deposit the $100 to user 1
 EXECUTE oes.transferFunds 
 @withdraw_account_id = 2,
 @deposit_account_id = 1,
