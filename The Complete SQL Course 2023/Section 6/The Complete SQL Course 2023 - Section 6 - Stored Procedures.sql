@@ -86,4 +86,8 @@ EXECUTE oes.transferFunds
 @deposit_account_id = 1,
 @transfer_amount = 100
 
+-- Check the records
 select * from oes.bank_accounts
+
+-- Check the tranactions
+select * from oes.bank_transactions
