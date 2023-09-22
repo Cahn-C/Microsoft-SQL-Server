@@ -21,3 +21,9 @@ select * from oes.customers
 
 -- Or
 sp_help 'oes.customers'
+
+-- Make the department_name column a UNIQUE constraint to avoid duplicate departments
+ALTER TABLE hcm.departments ADD CONSTRAINT uk_department_name UNIQUE (department_name)
+
+-- Check the records
+sp_help 'hcm.departments'
