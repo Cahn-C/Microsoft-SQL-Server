@@ -36,7 +36,7 @@ ALTER TABLE hcm.employees ADD CONSTRAINT ck_salary CHECK (salary >= 0)
 -- Check the records
 sp_help 'hcm.employees'
 
--- Check the constraints for a certain schema
+-- Check the constraints from a certain schema
 select tc.CONSTRAINT_SCHEMA, tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, ccu.TABLE_SCHEMA, ccu.TABLE_NAME 
 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc
 join INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu
