@@ -44,7 +44,7 @@ on he.BusinessEntityID = hh.BusinessEntityID
 
 
 -- Exercise 4
---
+-- Compare the pertenage of all employees to each employee pay rate
 select pp.FirstName, 
 	   pp.LastName, 
 	   he.JobTitle, 
