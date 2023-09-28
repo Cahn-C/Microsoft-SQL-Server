@@ -23,6 +23,63 @@ EXECUTE oes.getQuantityOnHand
 @warehouse = 2
 
 
+-- Test query for the stored procedure
+select e.employee_id, 
+	   e.first_name, 
+	   e.last_name, 
+	   m.employee_id as manager_id, 
+	   m.first_name as manager_first_name, 
+	   m.last_name as manager_last_name, 
+	   d.department_name
+from hcm.employees e
+left join hcm.employees m
+on e.manager_id = m.employee_id
+left join hcm.departments d
+on e.department_id= d.department_id
+where m.first_name = 'jack'
+and m.last_name = 'bernard'
+and d.department_name = 'Executive'
+
+GO
+
+
+-- Stored procedure that will return the following manager names along with the department that they run, and the employees that work for them
+CREATE PROCEDURE hcm.ManagerNamesAndDepartments (
+	@manager_first_name VARCHAR(100),
+	@manager_last_name VARCHAR(100),
+	@department VARCHAR(100)
+)
+AS
+
+BEGIN
+	
+	select e.employee_id, 
+		   e.first_name, 
+		   e.last_name, 
+		   m.employee_id as manager_id, 
+		   m.first_name as manager_first_name, 
+		   m.last_name as manager_last_name, 
+		   d.department_name
+	from hcm.employees e
+	left join hcm.employees m
+	on e.manager_id = m.employee_id
+	left join hcm.departments d
+	on e.department_id= d.department_id
+	where m.first_name = @manager_first_name
+	and m.last_name = @manager_last_name
+	and d.department_name = @department
+
+END
+
+GO
+
+
+EXECUTE hcm.ManagerNamesAndDepartments 
+@manager_first_name = 'Jack',
+@manager_last_name = 'bernard', 
+@department = 'Executive'
+
+
 
 -- Strored procudeure that returns the current products
 GO
