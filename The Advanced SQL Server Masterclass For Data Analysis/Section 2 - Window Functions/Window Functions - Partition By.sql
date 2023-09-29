@@ -1,3 +1,5 @@
+USE [AdventureWorks2017]
+
 -- Exercise 1
 -- Blueprint of the table that will be used to perform window functions
 select pp.Name, 
