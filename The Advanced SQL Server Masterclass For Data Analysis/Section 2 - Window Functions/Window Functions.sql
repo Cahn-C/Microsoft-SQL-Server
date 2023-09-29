@@ -1,3 +1,5 @@
+USE [AdventureWorks2017]
+
 -- Exercise 1
 -- Compare the average rate to each rate of the employees
 select pp.FirstName, 
