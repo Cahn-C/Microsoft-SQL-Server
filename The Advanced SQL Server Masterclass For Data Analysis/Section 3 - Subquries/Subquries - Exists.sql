@@ -1,5 +1,5 @@
 -- Exercise 1
---
+-- Check to make sure that there is at least one item in the order with an order quabtity greater than 500
 select PurchaseOrderID,
        OrderDate,
        SubTotal,
@@ -15,7 +15,7 @@ select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where Order
 
 
 -- Exercise 2
---
+-- Check to make sure that there is at least one item in the order with an order quabtity greater than 500 and the unit price is greater than 50
 select PurchaseOrderID,
        OrderDate,
        SubTotal,
@@ -32,7 +32,7 @@ select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where Order
 
 
 -- Exercise 3
---
+-- Check to make sure that there are NO items within an order that does not have a rejected quantity 
 select PurchaseOrderID,
        OrderDate,
        SubTotal,
