@@ -1,9 +1,9 @@
 -- Exercise 1
 --
 select PurchaseOrderID,
-	   OrderDate,
-	   SubTotal,
-	   TaxAmt
+       OrderDate,
+       SubTotal,
+       TaxAmt
 from Purchasing.PurchaseOrderHeader h
 where exists (select 1 from Purchasing.PurchaseOrderDetail d 
 			  where OrderQty > 500 
@@ -17,9 +17,9 @@ select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where Order
 -- Exercise 2
 --
 select PurchaseOrderID,
-	   OrderDate,
-	   SubTotal,
-	   TaxAmt
+       OrderDate,
+       SubTotal,
+       TaxAmt
 from Purchasing.PurchaseOrderHeader h
 where exists (select 1 from Purchasing.PurchaseOrderDetail d 
 			  where OrderQty > 500 
@@ -34,9 +34,9 @@ select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where Order
 -- Exercise 3
 --
 select PurchaseOrderID,
-	   OrderDate,
-	   SubTotal,
-	   TaxAmt
+       OrderDate,
+       SubTotal,
+       TaxAmt
 from Purchasing.PurchaseOrderHeader h
 where not exists (select 1 from Purchasing.PurchaseOrderDetail d 
 			  where RejectedQty > 0
