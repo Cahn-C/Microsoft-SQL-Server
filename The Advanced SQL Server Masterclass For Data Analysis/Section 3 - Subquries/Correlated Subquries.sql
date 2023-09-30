@@ -23,4 +23,5 @@ select PurchaseOrderID,
 			    where d.PurchaseOrderID = h.PurchaseOrderID)
 from Purchasing.PurchaseOrderHeader h
 
+-- Confirms the results from the above query
 select PurchaseOrderID, UnitPrice from Purchasing.PurchaseOrderDetail
