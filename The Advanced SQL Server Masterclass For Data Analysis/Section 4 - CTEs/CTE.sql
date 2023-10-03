@@ -1,4 +1,4 @@
--- Compare the total amount of sales and purchases at the start of each month
+-- Compare the total amount of all sales and purchases at the start of each month
 -- Starting code for CTE
 select A.OrderMonth,
 	   A.TotalSales,
