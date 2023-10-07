@@ -3,8 +3,8 @@ USE [AdventureWorks2017]
 -- Starter Code
 SELECT
        A.PurchaseOrderID,
-	   A.OrderDate,
-	   A.TotalDue
+       A.OrderDate,
+       A.TotalDue
 
 FROM AdventureWorks2017.Purchasing.PurchaseOrderHeader A
 
