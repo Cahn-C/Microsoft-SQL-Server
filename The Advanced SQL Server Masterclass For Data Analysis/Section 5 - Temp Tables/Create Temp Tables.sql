@@ -1,35 +1,35 @@
 -- Compare the total amount of sales and purchases at the start of each month
 with RankingSales as (
 	select OrderDate,
-		   TotalDue,
-		   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+	       TotalDue,
+	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 	from Sales.SalesOrderHeader
 ),
 OrderMonthlySales as (
 	select OrderMonth, 
-		   TotalSales = sum(TotalDue) 
+	       TotalSales = sum(TotalDue) 
 	from RankingSales
 	where OrderRank <= 10
 	group by OrderMonth
 ),
 RankingPurchases as (
 	select OrderDate,
-		   TotalDue,
-		   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+	       TotalDue,
+	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 	from Purchasing.PurchaseOrderHeader
 ),
 OrderMonthlyPurchases as (
 	select OrderMonth,
-		   TotalPurchases = sum(TotalDue)
+	       TotalPurchases = sum(TotalDue)
 	from RankingPurchases
 	group by OrderMonth
 ),
 TotalSalesAndPurchases as (
 	select oms.OrderMonth,
-		   oms.TotalSales,
-		   omp.TotalPurchases
+	       oms.TotalSales,
+	       omp.TotalPurchases
 	from OrderMonthlySales oms
 	left join OrderMonthlyPurchases omp
 	on oms.OrderMonth = omp.OrderMonth
@@ -48,9 +48,9 @@ CREATE TABLE #RankingSales (
 -- 
 INSERT INTO #RankingSales
 	select OrderDate,
-		   TotalDue,
-		   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+	       TotalDue,
+	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 	from Sales.SalesOrderHeader
 
 -- 
@@ -65,7 +65,7 @@ CREATE TABLE #OrderMonthlySales (
 -- 
 INSERT INTO #OrderMonthlySales
 	select OrderMonth,
-		   TotalSales = sum(TotalDue) 
+	       TotalSales = sum(TotalDue) 
 	from #RankingSales
 	where OrderRank <= 10
 	group by OrderMonth
@@ -84,9 +84,9 @@ CREATE TABLE #RankingPurchases (
 -- 
 INSERT INTO #RankingPurchases
 	select OrderDate,
-		   TotalDue,
-		   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+	       TotalDue,
+	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 	from Purchasing.PurchaseOrderHeader
 
 -- 
@@ -101,7 +101,7 @@ CREATE TABLE #OrderMonthlyPurchases (
 -- 
 INSERT INTO #OrderMonthlyPurchases
 	select OrderMonth,
-		   TotalPurchases = sum(TotalDue)
+	       TotalPurchases = sum(TotalDue)
 	from #RankingPurchases
 	group by OrderMonth
 
@@ -118,8 +118,8 @@ CREATE TABLE #TotalSalesAndPurchases (
 -- 
 INSERT INTO #TotalSalesAndPurchases
 	select oms.OrderMonth,
-		   oms.TotalSales,
-		   omp.TotalPurchases
+	       oms.TotalSales,
+	       omp.TotalPurchases
 	from #OrderMonthlySales oms
 	left join #OrderMonthlyPurchases omp
 	on oms.OrderMonth = omp.OrderMonth
