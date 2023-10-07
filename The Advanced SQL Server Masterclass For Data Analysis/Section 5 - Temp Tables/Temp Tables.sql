@@ -79,7 +79,7 @@ group by OrderMonth
 select * from #OrderMonthlyPurchases
 
 
--- Compare the total sales from the total purchases from the the order months
+-- Compare the total sales from the total purchases from the the orders months
 select oms.OrderMonth,
        oms.TotalSales,
        omp.TotalPurchases
