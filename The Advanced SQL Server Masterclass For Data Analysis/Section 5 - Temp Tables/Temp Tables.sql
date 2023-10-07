@@ -48,7 +48,7 @@ from Sales.SalesOrderHeader
 select * from #RankingSales
 
 
--- 
+-- Get the total sales for each order month
 select OrderMonth, 
        TotalSales = sum(TotalDue) 
 into #OrderMonthlySales
@@ -59,7 +59,7 @@ group by OrderMonth
 select * from #OrderMonthlySales
 
 
--- 
+-- Get certain records with the start of the order month and rank each month by it's total due in descending order
 select OrderDate,
        TotalDue,
        OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
@@ -69,7 +69,7 @@ from Purchasing.PurchaseOrderHeader
 
 select * from #RankingPurchases
 
--- 
+-- Get the total purchases for each order month
 select OrderMonth,
        TotalPurchases = sum(TotalDue)
 into #OrderMonthlyPurchases
@@ -79,7 +79,7 @@ group by OrderMonth
 select * from #OrderMonthlyPurchases
 
 
--- 
+-- Compare the total sales from the total purchases from the the order months
 select oms.OrderMonth,
        oms.TotalSales,
        omp.TotalPurchases
