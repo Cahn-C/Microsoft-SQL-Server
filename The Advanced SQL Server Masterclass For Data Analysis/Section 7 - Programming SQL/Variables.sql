@@ -7,11 +7,11 @@ SELECT @vacationHours = (SELECT MAX(VacationHours) FROM AdventureWorks2017.Human
 --Starter code:
 
 SELECT
-	   BusinessEntityID
+       BusinessEntityID
       ,JobTitle
       ,VacationHours
-	  ,MaxVacationHours = @vacationHours
-	  ,PercentOfMaxVacationHours = (VacationHours * 1.0) / @vacationHours
+      ,MaxVacationHours = @vacationHours
+      ,PercentOfMaxVacationHours = (VacationHours * 1.0) / @vacationHours
 FROM AdventureWorks2017.HumanResources.Employee
 WHERE (VacationHours * 1.0) / @vacationHours >= 0.8
 
