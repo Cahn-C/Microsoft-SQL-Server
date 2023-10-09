@@ -31,12 +31,12 @@ where PurchaseOrderRank <= 3
 -- Exercise 3
 -- Get the total amount of the top ten orders for each month
 select OrderMonth,
-	   sum(TotalDue) as TotalAmount
+       sum(TotalDue) as TotalAmount
 from (
 	select OrderDate,
-		   TotalDue,
-		   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+	       TotalDue,
+	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+     	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 	from Sales.SalesOrderHeader
 ) TopTenOrders
 where OrderRank <= 10
@@ -46,16 +46,16 @@ order by 1 asc
 
 -- Compare the total amount of sales and purchases at the start of each month
 select A.OrderMonth,
-	   A.TotalSales,
-	   B.TotalPurchases
+       A.TotalSales,
+       B.TotalPurchases
 from (
 	select OrderMonth,
-		   sum(TotalDue) as TotalSales
+	       sum(TotalDue) as TotalSales
 	from (
 		select OrderDate,
-			   TotalDue,
-			   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-			   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+		       TotalDue,
+		       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+		       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 		from Sales.SalesOrderHeader
 	) TopTenOrders
 	where OrderRank <= 10
@@ -63,12 +63,12 @@ from (
 ) A
 left join (
 	select OrderMonth,
-		   sum(TotalDue) as TotalPurchases
+	       sum(TotalDue) as TotalPurchases
 	from (
 		select OrderDate,
-			   TotalDue,
-			   OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-			   OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
+		       TotalDue,
+		       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
+		       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
 		from Purchasing.PurchaseOrderHeader
 	) TopTenOrders
 	where OrderRank <= 10
