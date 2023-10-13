@@ -62,8 +62,9 @@ SET HolidayFlag = CASE WHEN DayofWeekNumber = 1 AND MonthNumber = 1 THEN 1
 select * from dbo.CalenderLookUp where HolidayFlag = 1
 
 -- Get the Week day names for every order date
-select b.OrderDate, 
-	   a.DayofWeekName 
+select distinct
+       B.OrderDate, 
+       A.DayofWeekName 
 from dbo.CalenderLookUp A
 join Purchasing.PurchaseOrderHeader B
 on A.Date = b.OrderDate
