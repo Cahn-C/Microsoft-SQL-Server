@@ -62,3 +62,12 @@ group by location,
 	     population
 order by total_deaths desc
 ```
+
+```sql
+-- Break things down by continent
+select continent, 
+	   max_deaths = max(cast(total_deaths as int)) 
+from dbo.CovidDeaths
+where continent is not null
+group by continent
+```
