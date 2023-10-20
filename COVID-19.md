@@ -71,3 +71,61 @@ from dbo.CovidDeaths
 where continent is not null
 group by continent
 ```
+
+```sql
+-- Gloabl number of deaths
+select total_cases = sum(new_cases),
+	   total_deaths = sum(new_deaths),
+	   death_rate_percentage = sum(new_deaths) / sum(new_cases) * 100
+from dbo.CovidDeaths
+GO
+```
+
+-- Total Population vs the total of Vaccinations with CTE
+with vaccinations_cte as (
+	select dea.continent,
+		   dea.location,
+		   dea.date,
+		   dea.population,
+		   vac.new_vaccinations,
+		   rolling_vaccination_count = sum(cast(vac.new_vaccinations as decimal)) over(partition by dea.location order by dea.date)
+	from dbo.CovidDeaths dea
+	join dbo.CovidVaccinations vac
+	on dea.iso_code = vac.iso_code
+	and dea.location = vac.location
+	and dea.date = vac.date
+	where dea.continent is not null
+)
+select *, 
+	   vaccinated_population_percentage = (rolling_vaccination_count / population) * 100
+from vaccinations_cte
+```
+
+```sql
+-- Total Population vs the total of Vaccinations with a Temp Table
+CREATE TABLE #vaccinated_population (
+	continent VARCHAR(100),
+	location VARCHAR(100),
+	[date] DATE,
+	[population] FLOAT,
+	new_vaccinations INT,
+	rolling_vaccination_count FLOAT
+)
+
+INSERT INTO #vaccinated_population
+select dea.continent,
+	   dea.location,
+	   dea.date,
+       dea.population,
+       cast(vac.new_vaccinations as int),
+       rolling_vaccination_count = sum(cast(vac.new_vaccinations as decimal)) over(partition by dea.location order by dea.date)
+	from dbo.CovidDeaths dea
+	join dbo.CovidVaccinations vac
+	on dea.iso_code = vac.iso_code
+	and dea.location = vac.location
+	and dea.date = vac.date
+	where dea.continent is not null
+
+select  *, vaccinated_population_percentage = (rolling_vaccination_count / population) * 100
+from #vaccinated_population
+```
