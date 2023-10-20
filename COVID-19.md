@@ -1,6 +1,12 @@
 # COVID-19 Project
 
 ```sql
+-- Check the data types and table structure
+sp_help 'dbo.CovidDeaths'
+sp_help 'dbo.CovidVaccinations'
+```
+
+```sql
 -- Checking the records that I will be using
 select location, 
 	   date, 
@@ -104,6 +110,7 @@ from vaccinations_cte
 
 ```sql
 -- Total Population vs the total of Vaccinations with a Temp Table
+DROP TABLE IF EXISTS #vaccinated_population
 CREATE TABLE #vaccinated_population (
 	continent VARCHAR(100),
 	location VARCHAR(100),
