@@ -108,3 +108,67 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
 						ELSE SoldAsVacant
 				   END
 ```
+
+```sql
+-- Remove Duplicates
+-- Check for duplicates
+with rankCTE as (
+	select row_num = row_number() over(partition by ParcelID, 
+													LandUse, 
+													PropertyStreet, 
+													PropertyCity, 
+													SalesDate, 
+													SalePrice, 
+													LegalReference,
+													SoldAsVacant,
+													OwnerName,
+													OwnerStreet,
+													OwnerState,
+													Acreage,
+													TaxDistrict,
+													LandValue,
+													BuildingValue,
+													TotalValue,
+													YearBuilt,
+													Bedrooms,
+													FullBath,
+													HalfBath
+									   order by UniqueID),
+		   *
+	from dbo.NashvilleHousing
+)
+select * from rankCTE
+where row_num > 1
+
+
+-- Delete duplicate values
+with rankCTE as (
+	select row_num = row_number() over(partition by ParcelID, 
+													LandUse, 
+													PropertyStreet, 
+													PropertyCity, 
+													SalesDate, 
+													SalePrice, 
+													LegalReference,
+													SoldAsVacant,
+													OwnerName,
+													OwnerStreet,
+													OwnerState,
+													Acreage,
+													TaxDistrict,
+													LandValue,
+													BuildingValue,
+													TotalValue,
+													YearBuilt,
+													Bedrooms,
+													FullBath,
+													HalfBath
+									   order by UniqueID),
+		   *
+	from dbo.NashvilleHousing
+)
+delete from rankCTE
+where row_num > 1
+
+select * from dbo.NashvilleHousing
+```
