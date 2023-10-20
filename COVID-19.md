@@ -81,6 +81,7 @@ from dbo.CovidDeaths
 GO
 ```
 
+```sql
 -- Total Population vs the total of Vaccinations with CTE
 with vaccinations_cte as (
 	select dea.continent,
