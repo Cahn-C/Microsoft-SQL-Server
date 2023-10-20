@@ -137,3 +137,35 @@ select dea.continent,
 select  *, vaccinated_population_percentage = (rolling_vaccination_count / population) * 100
 from #vaccinated_population
 ```
+
+
+```sql
+-- Creating views to use consistently, and connect the views to Tableau or Power BI
+-- 
+CREATE VIEW vw_max_deaths AS
+select location,
+	   population,
+	   total_deaths = max(cast(total_deaths as int)),
+	   max_death_percentage = max((cast(total_deaths as decimal) / population) * 100)
+from dbo.CovidDeaths
+-- where continent = 'North America'
+group by location,
+	     population
+-- order by total_deaths desc
+
+select * from vw_max_deaths
+
+
+-- 
+CREATE VIEW vw_united_states_death_rate AS
+select location, 
+	   date, 
+	   total_cases,
+	   total_deaths,
+	   death_percentage = cast(total_deaths AS decimal) / cast(total_cases AS decimal) * 100
+from dbo.CovidDeaths
+where location like '%states%'
+--order by 1, 2
+
+select * from vw_united_states_death_rate
+```
