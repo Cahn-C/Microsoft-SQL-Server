@@ -1,6 +1,6 @@
 # COVID-19 Project
 
-Ensure taht I am using the correct database
+Ensure that I am using the correct database
 ```sql
 USE [PortfolioProject]
 ```
