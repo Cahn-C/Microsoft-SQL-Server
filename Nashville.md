@@ -33,8 +33,8 @@ select * from dbo.NashvilleHousing
 select * from dbo.NashvilleHousing where PropertyAddress is null
 
 select nash1.PropertyAddress,
-	   nash2.PropertyAddress,
-	   NewPropertyAddress = isnull(nash1.PropertyAddress, nash2.PropertyAddress)
+       nash2.PropertyAddress,
+       NewPropertyAddress = isnull(nash1.PropertyAddress, nash2.PropertyAddress)
 from dbo.NashvilleHousing nash1
 join dbo.NashvilleHousing nash2
 on nash1.ParcelID = nash2.ParcelID
@@ -44,11 +44,11 @@ where nash1.PropertyAddress is null
 
 UPDATE nash1
 SET PropertyAddress = ISNULL(nash1.PropertyAddress, nash2.PropertyAddress)
-					  FROM dbo.NashvilleHousing nash1
-					  JOIN dbo.NashvilleHousing nash2
-					  ON nash1.ParcelID = nash2.ParcelID
-					  AND nash1.[UniqueID ] <> nash2.[UniqueID ]
-					  WHERE nash1.PropertyAddress IS NULL
+                      FROM dbo.NashvilleHousing nash1
+                      JOIN dbo.NashvilleHousing nash2
+                      ON nash1.ParcelID = nash2.ParcelID
+                      AND nash1.[UniqueID ] <> nash2.[UniqueID ]
+                      WHERE nash1.PropertyAddress IS NULL
 
 
 select PropertyAddress from dbo.NashvilleHousing
@@ -58,14 +58,14 @@ select PropertyAddress from dbo.NashvilleHousing
 ```sql
 -- Breaking out Address into Indivisual Columns (Street Name, City, State)
 select PropertyAddress, 
-	   OwnerAddress 
+       OwnerAddress 
 from dbo.NashvilleHousing
 
 select PropertyStreet = parsename(replace(PropertyAddress, ',', '.'), 2),
-	   PropertyCity = parsename(replace(PropertyAddress, ',', '.'), 1),
-	   OwnerStreet = parsename(replace(OwnerAddress, ',', '.'), 3),
-	   OwnerCity = parsename(replace(OwnerAddress, ',', '.'), 2),
-	   OwnerState = parsename(replace(OwnerAddress, ',', '.'), 1)
+       PropertyCity = parsename(replace(PropertyAddress, ',', '.'), 1),
+       OwnerStreet = parsename(replace(OwnerAddress, ',', '.'), 3),
+       OwnerCity = parsename(replace(OwnerAddress, ',', '.'), 2),
+       OwnerState = parsename(replace(OwnerAddress, ',', '.'), 1)
 from dbo.NashvilleHousing
 
 
@@ -97,16 +97,16 @@ order by 2
 
 -- Test Query
 select ChangeCharacters = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes' WHEN SoldAsVacant = 'N' THEN 'No' ELSE SoldAsVacant END,
-	   SoldAsVacant
+       SoldAsVacant
 from dbo.NashvilleHousing 
 group by SoldAsVacant
 
 
 UPDATE [PortfolioProject].[dbo].[NashvilleHousing]
 SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
-						WHEN SoldAsVacant = 'N' THEN 'No'
-						ELSE SoldAsVacant
-				   END
+                        WHEN SoldAsVacant = 'N' THEN 'No'
+                        ELSE SoldAsVacant
+                   END
 ```
 
 ```sql
@@ -114,27 +114,27 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
 -- Check for duplicates
 with rankCTE as (
 	select row_num = row_number() over(partition by ParcelID, 
-													LandUse, 
-													PropertyStreet, 
-													PropertyCity, 
-													SalesDate, 
-													SalePrice, 
-													LegalReference,
-													SoldAsVacant,
-													OwnerName,
-													OwnerStreet,
-													OwnerState,
-													Acreage,
-													TaxDistrict,
-													LandValue,
-													BuildingValue,
-													TotalValue,
-													YearBuilt,
-													Bedrooms,
-													FullBath,
-													HalfBath
-									   order by UniqueID),
-		   *
+                                                        LandUse, 
+							PropertyStreet, 
+						        PropertyCity, 
+						        SalesDate, 
+							SalePrice, 
+							LegalReference,
+							SoldAsVacant,
+							OwnerName,
+							OwnerStreet,
+							OwnerState,
+							Acreage,
+							TaxDistrict,
+							LandValue,
+							BuildingValue,
+							TotalValue,
+							YearBuilt,
+							Bedrooms,
+							FullBath,
+							HalfBath
+                                          order by UniqueID),
+             *
 	from dbo.NashvilleHousing
 )
 select * from rankCTE
@@ -143,28 +143,28 @@ where row_num > 1
 
 -- Delete duplicate values
 with rankCTE as (
-	select row_num = row_number() over(partition by ParcelID, 
-													LandUse, 
-													PropertyStreet, 
-													PropertyCity, 
-													SalesDate, 
-													SalePrice, 
-													LegalReference,
-													SoldAsVacant,
-													OwnerName,
-													OwnerStreet,
-													OwnerState,
-													Acreage,
-													TaxDistrict,
-													LandValue,
-													BuildingValue,
-													TotalValue,
-													YearBuilt,
-													Bedrooms,
-													FullBath,
-													HalfBath
-									   order by UniqueID),
-		   *
+	select row_num = row_number() over(partition by ParcelID,
+	                                                LandUse, 
+							PropertyStreet, 
+							PropertyCity, 
+							SalesDate, 
+							SalePrice, 
+							LegalReference,
+							SoldAsVacant,
+							OwnerName,
+							OwnerStreet,
+							OwnerState,
+							Acreage,
+							TaxDistrict,
+							LandValue,
+							BuildingValue,
+							TotalValue,
+							YearBuilt,
+							Bedrooms,
+							FullBath,
+							HalfBath
+                                          order by UniqueID),
+             *
 	from dbo.NashvilleHousing
 )
 delete from rankCTE
