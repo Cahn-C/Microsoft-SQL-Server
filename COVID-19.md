@@ -1,5 +1,11 @@
 # COVID-19 Project
 
+Ensure taht I am using the correct database
+```sql
+USE [PortfolioProject]
+```
+<br>
+
 ```sql
 -- Check the data types and table structure
 sp_help 'dbo.CovidDeaths'
