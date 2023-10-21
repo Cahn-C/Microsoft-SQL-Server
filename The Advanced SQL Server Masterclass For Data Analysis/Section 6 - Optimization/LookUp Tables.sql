@@ -32,10 +32,10 @@ SELECT * FROM Dates OPTION(MAXRECURSION 10000)
 -- Update the columns in the Calender table
 UPDATE [AdventureWorks2017].[dbo].[CalenderLookUp]
 SET DayofMonthNumber = DATEPART(WEEKDAY, Date),
-	DayofWeekName = FORMAT(Date, 'dddd'),
-	DayofWeekNumber = DAY(Date),
-	MonthNumber = MONTH(Date),
-	YearNumber = YEAR(Date)
+    DayofWeekName = FORMAT(Date, 'dddd'),
+    DayofWeekNumber = DAY(Date),
+    MonthNumber = MONTH(Date),
+    YearNumber = YEAR(Date)
 
 
 -- Update the weekend column with 1 indicating a weekend and 0 indicationg a weekday
