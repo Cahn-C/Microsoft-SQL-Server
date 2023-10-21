@@ -12,7 +12,9 @@ I always check the data types of the tables that I am working with, this is due 
 sp_help 'dbo.CovidDeaths'
 sp_help 'dbo.CovidVaccinations'
 ```
+<br>
 
+I gave my self a blue brint of what I will be using throughout this project.
 ```sql
 -- Checking the records that I will be using
 select location,
@@ -24,7 +26,9 @@ select location,
 from dbo.CovidDeaths
 order by 1, 2
 ```
+<br>
 
+I was curious to see the amount of deaths that have occured in the United States from the start of covid to the current day, I took the total_deaths column and divied the column by the total_cases column then multiplied the results by 100 to get an accurate percentage.
 ```sql
 -- Check the percentage death rate for the United States
 select location, 
