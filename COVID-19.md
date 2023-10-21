@@ -6,6 +6,7 @@ USE [PortfolioProject]
 ```
 <br>
 
+I always check the data types of the tables that I am working with, this is due to certain columns that need to be converted into other data types when I perform certain scripts.
 ```sql
 -- Check the data types and table structure
 sp_help 'dbo.CovidDeaths'
