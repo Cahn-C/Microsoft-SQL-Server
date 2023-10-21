@@ -1,19 +1,19 @@
 CREATE TABLE #PersonContactInfo
 (
-	   BusinessEntityID INT
+       BusinessEntityID INT
       ,Title VARCHAR(8)
       ,FirstName VARCHAR(50)
       ,MiddleName VARCHAR(50)
       ,LastName VARCHAR(50)
-	  ,PhoneNumber VARCHAR(25)
-	  ,PhoneNumberTypeID VARCHAR(25)
-	  ,PhoneNumberType VARCHAR(25)
-	  ,EmailAddress VARCHAR(50)
+      ,PhoneNumber VARCHAR(25)
+      ,PhoneNumberTypeID VARCHAR(25)
+      ,PhoneNumberType VARCHAR(25)
+      ,EmailAddress VARCHAR(50)
 )
 
 INSERT INTO #PersonContactInfo
 (
-	   BusinessEntityID
+       BusinessEntityID
       ,Title
       ,FirstName
       ,MiddleName
@@ -21,7 +21,7 @@ INSERT INTO #PersonContactInfo
 )
 
 SELECT
-	   BusinessEntityID
+       BusinessEntityID
       ,Title
       ,FirstName
       ,MiddleName
