@@ -9,7 +9,7 @@ CREATE TABLE #Sales2012 (
 
 INSERT INTO #Sales2012
 SELECT SalesOrderID,
-	   OrderDate
+       OrderDate
 FROM Sales.SalesOrderHeader
 WHERE year(OrderDate) = 2012
 
@@ -42,10 +42,10 @@ INSERT INTO #ProductsSold2012 (
 	ProductID
 )
 SELECT h.SalesOrderID,
-	   d.SalesOrderDetailID,
-	   h.OrderDate,
-	   d.LineTotal,
-	   d.ProductID
+       d.SalesOrderDetailID,
+       h.OrderDate,
+       d.LineTotal,
+       d.ProductID
 FROM Sales.SalesOrderHeader h
 JOIN Sales.SalesOrderDetail d
 ON h.SalesOrderID = d.SalesOrderID
