@@ -14,7 +14,7 @@ sp_help 'dbo.CovidVaccinations'
 ```
 <br>
 
-I gave my self a blue brint of what I will be using throughout this project.
+I gave myself a blue brint of what I will be using throughout this project.
 ```sql
 -- Checking the records that I will be using
 select location,
