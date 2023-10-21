@@ -40,7 +40,9 @@ from dbo.CovidDeaths
 where location like '%states%'
 order by 1, 2
 ```
+<br>
 
+In this next query, I wanted to see how likely it would be to get covid in the US by dividing the total_cases from the population column and then multiplying by 100. 
 ```sql
 -- Check the percentage of the population that received COVID in the United States
 select location, 
