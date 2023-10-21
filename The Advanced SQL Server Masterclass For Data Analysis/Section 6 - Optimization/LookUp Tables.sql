@@ -46,16 +46,16 @@ SET WeekendFlag = CASE WHEN DayofWeekName in ('Saturday', 'Sunday') THEN 1 ELSE 
 -- Update the holiday column with 1 indicating a holdiay in the United States and 0 indicating no holiday
 UPDATE [AdventureWorks2017].[dbo].[CalenderLookUp]
 SET HolidayFlag = CASE WHEN DayofWeekNumber = 1 AND MonthNumber = 1 THEN 1
-					   WHEN DayofWeekNumber = 23 AND MonthNumber = 11 THEN 1 
-					   WHEN DayofWeekNumber = 25 AND MonthNumber = 12 THEN 1
-					   WHEN DayofWeekNumber = 16 AND MonthNumber = 1 THEN 1
-					   WHEN DayofWeekNumber = 20 AND MonthNumber = 2 THEN 1
-					   WHEN DayofWeekNumber = 29 AND MonthNumber = 5 THEN 1
-					   WHEN DayofWeekNumber = 16 AND MonthNumber = 6 THEN 1
-					   WHEN DayofWeekNumber = 4 AND MonthNumber = 7 THEN 1
-					   WHEN DayofWeekNumber = 4 AND MonthNumber = 9 THEN 1
-					   ELSE 0 
-				  END
+		       WHEN DayofWeekNumber = 23 AND MonthNumber = 11 THEN 1 
+                       WHEN DayofWeekNumber = 25 AND MonthNumber = 12 THEN 1
+	               WHEN DayofWeekNumber = 16 AND MonthNumber = 1 THEN 1
+ 		       WHEN DayofWeekNumber = 20 AND MonthNumber = 2 THEN 1
+		       WHEN DayofWeekNumber = 29 AND MonthNumber = 5 THEN 1
+		       WHEN DayofWeekNumber = 16 AND MonthNumber = 6 THEN 1
+		       WHEN DayofWeekNumber = 4 AND MonthNumber = 7 THEN 1
+		       WHEN DayofWeekNumber = 4 AND MonthNumber = 9 THEN 1
+		       ELSE 0 
+		  END
 
 
 -- Check the results
