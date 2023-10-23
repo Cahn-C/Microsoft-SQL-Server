@@ -3,18 +3,18 @@ USE [AdventureWorks2017]
 -- Challenge 1
 -- 
 select pod.PurchaseOrderID,
-	   pod.PurchaseOrderDetailID,
-	   pod.OrderQty,
-	   pod.UnitPrice,
-	   pod.LineTotal,
-	   poh.OrderDate,
-	   ProductName = pro.Name,
-	   Subcategory = isnull(prs.Name, 'None'),
-	   Category = isnull(prc.Name, 'None'),
-	   OrderSizeCategory = case when pod.OrderQty > 500 then 'Large' 
-								when pod.OrderQty > 50 and pod.OrderQty <= 500 then 'Medium'
-								else 'Small'
-						   end
+       pod.PurchaseOrderDetailID,
+       pod.OrderQty,
+       pod.UnitPrice,
+       pod.LineTotal,
+       poh.OrderDate,
+       ProductName = pro.Name,
+       Subcategory = isnull(prs.Name, 'None'),
+       Category = isnull(prc.Name, 'None'),
+       OrderSizeCategory = case when pod.OrderQty > 500 then 'Large' 
+				when pod.OrderQty > 50 and pod.OrderQty <= 500 then 'Medium'
+				else 'Small'
+			   end
 from Purchasing.PurchaseOrderDetail pod
 join Purchasing.PurchaseOrderHeader poh
 on pod.PurchaseOrderID = poh.PurchaseOrderID
@@ -31,19 +31,19 @@ GO
 -- Challenge 2
 -- 
 select Purchases = 'Purchases',
-	   pod.PurchaseOrderID,
-	   pod.PurchaseOrderDetailID,
-	   pod.OrderQty,
-	   pod.UnitPrice,
-	   pod.LineTotal,
-	   poh.OrderDate,
-	   ProductName = pro.Name,
-	   Subcategory = isnull(prs.Name, 'None'),
-	   Category = isnull(prc.Name, 'None'),
-	   OrderSizeCategory = case when pod.OrderQty > 500 then 'Large' 
-								when pod.OrderQty > 50 and pod.OrderQty <= 500 then 'Medium'
-								else 'Small'
-						   end
+       pod.PurchaseOrderID,
+       pod.PurchaseOrderDetailID,
+       pod.OrderQty,
+       pod.UnitPrice,
+       pod.LineTotal,
+       poh.OrderDate,
+       ProductName = pro.Name,
+       Subcategory = isnull(prs.Name, 'None'),
+       Category = isnull(prc.Name, 'None'),
+       OrderSizeCategory = case when pod.OrderQty > 500 then 'Large' 
+				when pod.OrderQty > 50 and pod.OrderQty <= 500 then 'Medium'
+				else 'Small'
+			   end
 from Purchasing.PurchaseOrderDetail pod
 join Purchasing.PurchaseOrderHeader poh
 on pod.PurchaseOrderID = poh.PurchaseOrderID
@@ -58,19 +58,19 @@ where month(poh.OrderDate) = 12
 union
 
 select Sales = 'Sales',
-	   sod.SalesOrderID,
-	   sod.SalesOrderDetailID,
-	   sod.OrderQty,
-	   sod.UnitPrice,
-	   sod.LineTotal,
-	   soh.OrderDate,
-	   ProductName = pro.Name,
-	   Subcategory = isnull(prs.Name, 'None'),
-	   Category = isnull(prc.Name, 'None'),
-	   OrderSizeCategory = case when sod.OrderQty > 500 then 'Large' 
-								when sod.OrderQty > 50 and sod.OrderQty <= 500 then 'Medium'
-								else 'Small'
-						   end
+       sod.SalesOrderID,
+       sod.SalesOrderDetailID,
+       sod.OrderQty,
+       sod.UnitPrice,
+       sod.LineTotal,
+       soh.OrderDate,
+       ProductName = pro.Name,
+       Subcategory = isnull(prs.Name, 'None'),
+       Category = isnull(prc.Name, 'None'),
+       OrderSizeCategory = case when sod.OrderQty > 500 then 'Large' 
+				when sod.OrderQty > 50 and sod.OrderQty <= 500 then 'Medium'
+				else 'Small'
+			   end
 from Sales.SalesOrderDetail sod
 join Sales.SalesOrderHeader soh
 on sod.SalesOrderID = soh.SalesOrderID
@@ -87,13 +87,13 @@ GO
 -- Challege 3
 -- 
 select per.BusinessEntityID,
-	   per.PersonType,
-	   FullName = concat(per.FirstName, ' ' , '' + MiddleName, ' ', LastName),
-	   Address = adr.AddressLine1,
-	   adr.City,
-	   adr.PostalCode,
-	   State = psr.Name,
-	   Country = pcr.Name
+       per.PersonType,
+       FullName = concat(per.FirstName, ' ' , '' + MiddleName, ' ', LastName),
+       Address = adr.AddressLine1,
+       adr.City,
+       adr.PostalCode,
+       State = psr.Name,
+       Country = pcr.Name
 from Person.Person per
 join Person.BusinessEntityAddress bea
 on per.BusinessEntityID = bea.BusinessEntityID
@@ -114,13 +114,13 @@ GO
 -- 
 with employeesCTE as (
 	select JobCategory = case when emp.JobTitle like '%Manager%' or emp.JobTitle like '%President%' or emp.JobTitle like '%Executive%' then 'Management'
-							  when emp.JobTitle like '%Engineer%' then 'Engineering'
-							  when emp.JobTitle like '%Production%' then 'Production'
-							  when emp.JobTitle like '%Marketing%' then 'Marketing'
-							  when emp.JobTitle is null then 'NA'
-							  when emp.JobTitle in ('Recruiter', '“Benefits Specialist', 'Human Resources Administrative Assistant') then 'Human Resources'
-							  else 'Other'
-						 end,
+				  when emp.JobTitle like '%Engineer%' then 'Engineering'
+				  when emp.JobTitle like '%Production%' then 'Production'
+				  when emp.JobTitle like '%Marketing%' then 'Marketing'
+				  when emp.JobTitle is null then 'NA'
+				  when emp.JobTitle in ('Recruiter', 'â€œBenefits Specialist', 'Human Resources Administrative Assistant') then 'Human Resources'
+				  else 'Other'
+			     end,
 		   JobTitle = isnull(emp.JobTitle, 'None')
 	from Person.Person per
 	left join HumanResources.Employee emp
