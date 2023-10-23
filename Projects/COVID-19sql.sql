@@ -127,7 +127,7 @@ from #vaccinated_population
 
 
 -- Creating views to use consistently, and connect the views to Tableau or Power BI
--- 
+-- Create a view that calculates the max death percentage world wide 
 CREATE VIEW vw_max_deaths AS
 select location,
        population,
@@ -142,7 +142,7 @@ group by location,
 select * from vw_max_deaths
 
 
--- 
+-- Create a view that calculates the death rate percentage in the United States
 CREATE VIEW vw_united_states_death_rate AS
 select location, 
        date, 
