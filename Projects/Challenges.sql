@@ -121,7 +121,7 @@ with employeesCTE as (
 				  when emp.JobTitle in ('Recruiter', '“Benefits Specialist', 'Human Resources Administrative Assistant') then 'Human Resources'
 				  else 'Other'
 			     end,
-		   JobTitle = isnull(emp.JobTitle, 'None')
+	       JobTitle = isnull(emp.JobTitle, 'None')
 	from Person.Person per
 	left join HumanResources.Employee emp
 	on emp.BusinessEntityID = per.BusinessEntityID
