@@ -110,28 +110,28 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
 -- Check for duplicates
 with rankCTE as (
 	select row_num = row_number() over(partition by ParcelID, 
-													LandUse, 
-													PropertyStreet, 
-													PropertyCity, 
-													SalesDate, 
-													SalePrice, 
-													LegalReference,
-													SoldAsVacant,
-													OwnerName,
-													OwnerStreet,
-													OwnerState,
-													Acreage,
-													TaxDistrict,
-													LandValue,
-													BuildingValue,
-													TotalValue,
-													YearBuilt,
-													Bedrooms,
-													FullBath,
-													HalfBath
-									   order by UniqueID),
+							LandUse, 
+							PropertyStreet, 
+							PropertyCity, 
+							SalesDate, 
+							SalePrice, 
+							LegalReference,
+							SoldAsVacant,
+							OwnerName,
+							OwnerStreet,
+							OwnerState,
+							Acreage,
+							TaxDistrict,
+							LandValue,
+							BuildingValue,
+							TotalValue,
+							YearBuilt,
+							Bedrooms,
+							FullBath,
+							HalfBath
+					   order by UniqueID),
 		   *
-	from dbo.NashvilleHousing
+       from dbo.NashvilleHousing
 )
 select * from rankCTE
 where row_num > 1
