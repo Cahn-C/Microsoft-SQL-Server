@@ -1,7 +1,7 @@
 USE [AdventureWorks2017]
 
 -- Challenge 1
--- 
+-- Categorize every product with Small, Medium and Large
 select pod.PurchaseOrderID,
        pod.PurchaseOrderDetailID,
        pod.OrderQty,
@@ -29,7 +29,7 @@ GO
 
 
 -- Challenge 2
--- 
+-- Combine the amount of purchases that were made in the month of December for every year up until now with the amount of sales that were made in December
 select Purchases = 'Purchases',
        pod.PurchaseOrderID,
        pod.PurchaseOrderDetailID,
@@ -85,7 +85,7 @@ GO
 
 
 -- Challege 3
--- 
+-- Find the number of people that are located in the United States, have a person type of SP that have a postal code that starts with 9 with the length of that postal code being 5.
 select per.BusinessEntityID,
        per.PersonType,
        FullName = concat(per.FirstName, ' ' , '' + MiddleName, ' ', LastName),
@@ -111,7 +111,7 @@ GO
 
 
 -- Challenge 4
--- 
+-- Categorize each job title with the respective title, then find out how many people do not have the respective title
 with employeesCTE as (
 	select JobCategory = case when emp.JobTitle like '%Manager%' or emp.JobTitle like '%President%' or emp.JobTitle like '%Executive%' then 'Management'
 				  when emp.JobTitle like '%Engineer%' then 'Engineering'
@@ -130,18 +130,18 @@ select * from employeesCTE where JobCategory <> 'NA'
 
 
 -- Challenge 5
--- 
+-- Find the current date
 select getdate() as CurrentDate
 
--- 
+-- Get the first day of every year and month
 select datefromparts(year(getdate()), month(getdate()), 1)
 
--- 
+-- Add the start of the current year and month by 1
 select dateadd(month, 1, datefromparts(year(getdate()), month(getdate()), 1))
 
--- 
+-- Subtract the start of the current year and month by 1
 select dateadd(day, -1,  dateadd(month, 1, datefromparts(year(getdate()), month(getdate()), 1)))
 
--- 
+-- Get the difference by day
 select DATEDIFF(DAY, getdate(), dateadd(day, -1,  dateadd(month, 1, datefromparts(year(getdate()), month(getdate()), 1))))
 
