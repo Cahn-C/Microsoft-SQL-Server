@@ -50,7 +50,7 @@ group by location,
 order by total_cases desc
 
 
--- Check the countries with the highest death count per population
+-- Check the countries with the highest death count per population and location
 select location,
        population,
        total_deaths = max(cast(total_deaths as int)),
