@@ -30,9 +30,9 @@ DROP TABLE Customer
 
 INSERT INTO Customer (CustomerID, CustomerName, CustomerAddress) VALUES (1, 'John', 'London')
 
-INSERT INTO Customer (CustomerId, CustomerName, CustomerAddress) 
-VALUES (2, 'Kumar', 'Bangalore'),
-	   (3, 'Abdulia', 'Kuwait')
+INSERT INTO Customer (CustomerId, CustomerName, CustomerAddress) VALUES 
+(2, 'Kumar', 'Bangalore'),
+(3, 'Abdulia', 'Kuwait')
 
 INSERT INTO Customer (CustomerId, CustomerName, CustomerAddress, PhoneNumber) VALUES 
 (4, 'Jessica', 'France', '+1 (770) 321-2984'),
