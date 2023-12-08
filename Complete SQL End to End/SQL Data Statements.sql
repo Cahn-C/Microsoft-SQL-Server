@@ -58,6 +58,7 @@ UPDATE Customer SET PhoneNumber = '+1 (678) 120-3742' WHERE CustomerID = 9
 UPDATE Customer SET PhoneNumber = '+1 (770) 463-3911' WHERE CustomerID = 10
 
 DELETE FROM Customer
+DELETE FROM Customer WHERE CustomerID = 1
 
 /*
 =============================================================================================================================================
