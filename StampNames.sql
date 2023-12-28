@@ -1,5 +1,25 @@
 USE [DatabaseFundamentals]
 
+ALTER TABLE [dbo].[tblStampNames] ADD [Rarity] VARCHAR(20) NULL
+ALTER TABLE [dbo].[tblStampNames] ALTER COLUMN [Rarity] VARCHAR(30)
+ALTER TABLE [dbo].[tblStampNames] DROP COLUMN [Rarity]
+
+SP_HELP '[dbo].[tblStampNames]'
+
+SELECT * FROM [dbo].[tblStampNames]
+
+ALTER TABLE [dbo].[tblStampPurchases] ADD [PurchaseID] INT IDENTITY(1,1)
+ALTER TABLE [dbo].[tblStampPurchases] ADD [PurchaseID] INT PRIMARY KEY IDENTITY(1,1)
+ALTER TABLE [dbo].[tblStampPurchases] ADD CONSTRAINT PK_tblStampPurchases_PurchaseID PRIMARY KEY ([PurchaseID])
+ALTER TABLE [dbo].[tblStampPurchases] DROP COLUMN [PurchaseID]
+ALTER TABLE [dbo].[tblStampPurchases] DROP CONSTRAINT PK_tblStampPurchases_PurchaseID
+ALTER TABLE [dbo].[tblStampPurchases] DROP CONSTRAINT [PK__tblStamp__6B0A6BDE4C44F754]
+
+SP_HELP '[dbo].[tblStampPurchases]'
+
+SELECT * FROM [dbo].[tblStampPurchases]
+
+
 CREATE TABLE [dbo].[tblStampAnalysis] (
 	[StampCountry] VARCHAR(50) NOT NULL,
 	[PurchasePrice] SMALLMONEY
