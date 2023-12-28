@@ -1,5 +1,24 @@
 USE [DatabaseFundamentals]
 
+ALTER TABLE [dbo].[tblStampNames] ADD CONSTRAINT PK_tblStampNames_StampID PRIMARY KEY ([StampID])
+
+ALTER TABLE [dbo].[tblStampPurchases] WITH NOCHECK ADD CONSTRAINT FK_tblStampPurchases_StampID
+FOREIGN KEY ([StampID]) REFERENCES [dbo].[tblStampNames] ([StampID]) 
+ON DELETE CASCADE 
+ON UPDATE CASCADE
+
+
+SELECT * FROM [dbo].[tblStampNames]
+SELECT * FROM [dbo].[tblStampPurchases]
+
+
+BEGIN TRANSACTION
+INSERT INTO [dbo].[tblStampNames] VALUES (10, 'Queen Victoria', 'USA', 1976)
+UPDATE [dbo].[tblStampPurchases] SET StampID = 10 WHERE [PurchaseID] = 5
+SELECT * FROM [dbo].[tblStampNames]
+SELECT * FROM [dbo].[tblStampPurchases]
+ROLLBACK TRANSACTION
+
 ALTER TABLE [dbo].[tblStampNames] ADD [Rarity] VARCHAR(20) NULL
 ALTER TABLE [dbo].[tblStampNames] ALTER COLUMN [Rarity] VARCHAR(30)
 ALTER TABLE [dbo].[tblStampNames] DROP COLUMN [Rarity]
