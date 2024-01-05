@@ -108,27 +108,46 @@ SELECT * FROM [dbo].[tblEmployee]
 
 -- Stamps
 
-CREATE TABLE [dbo].[tblStampNameUpdate] (
+CREATE TABLE [dbo].[tblStampNamesUpdate] (
 	StampID TINYINT NOT NULL,
-	StampName VARCHAR(17) NOT NULL,
+	StampName VARCHAR(12) NOT NULL
 )
 
-INSERT INTO [dbo].[tblStampNameUpdate] VALUES (2, 'John Quincy Admas'), (8, 'William III')
+ALTER TABLE [dbo].[tblStampNamesUpdate] ALTER COLUMN [StampName] VARCHAR(17)
+
+INSERT INTO [dbo].[tblStampNamesUpdate] VALUES (2, 'John Quincy Adams'), (8, 'William III')
+
+TRUNCATE TABLE [dbo].[tblStampNamesUpdate]
+GO
+
+SELECT * FROM [dbo].[tblStampNames]
+SELECT * FROM [dbo].[tblStampNamesUpdate]
+GO
+
 
 BEGIN TRANSACTION
 
-	UPDATE [dbo].[tblStampNames] 
-	SET StampName = SU.StampName
-	FROM [dbo].[tblStampNames] SN
-	JOIN [dbo].[tblStampNameUpdate] SU
-	ON SN.StampID = SU.StampID
+	SELECT * FROM [dbo].[tblStampNames]
 
-	DELETE FROM [dbo].[tblStampNameUpdate] WHERE StampName LIKE '%a%'
+	UPDATE [dbo].[tblStampNames]
+	SET [StampName] = SU.[StampName]
+	FROM [dbo].[tblStampNames] SN
+	LEFT JOIN [dbo].[tblStampNamesUpdate] SU
+	ON SN.StampID = SU.StampID
+	WHERE SN.[StampID] = SU.[StampID]
 
 	SELECT * FROM [dbo].[tblStampNames]
-	SELECT * FROM [dbo].[tblStampNameUpdate]
+
+	SELECT * INTO [dbo].[tblStampNamesDeleted] FROM [dbo].[tblStampNamesUpdate] WHERE [StampName] LIKE '%a%'
+
+	SELECT * FROM [dbo].[tblStampNamesDeleted]
+
+	DELETE FROM [dbo].[tblStampNamesUpdate] WHERE [StampName] LIKE '%a%'
 
 ROLLBACK TRANSACTION
+
+EXEC SP_HELP '[dbo].[tblStampNames]'
+EXEC SP_HELP '[dbo].[tblStampNamesUpdate]'
 
 
 SELECT * FROM [dbo].[tblStampNames]
