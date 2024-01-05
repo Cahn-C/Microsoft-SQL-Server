@@ -167,35 +167,43 @@ SELECT * FROM vwMyView
 GO
 
 
-CREATE OR ALTER VIEW vwStamps WITH SCHEMABINDING AS
-SELECT SN.[StampID]
-      ,SN.[StampName]
-      ,SN.[StampCountry]
-      ,SN.[StampYear] 
-	  ,SP.[PurchaseDate]
-	  ,SP.[PurchasePrice] 
-FROM [dbo].[tblStampNames] SN 
-LEFT JOIN [dbo].[tblStampPurchases] SP
-ON SN.StampID = SP.StampID
-WHERE SN.StampID BETWEEN 1 AND 5
+ALTER VIEW vw_Stamps WITH SCHEMABINDING AS
+SELECT SN.StampID,
+	   SN.StampName,
+	   SN.StampCountry,
+	   SN.StampYear,
+	   SP.PurchaseDate, 
+	   SP.PurchasePrice 
+FROM [dbo].[tblStampPurchases] SP RIGHT JOIN [dbo].[tblStampNames] SN
+ON SN.[StampID] = SP.[StampID]
+WHERE SN.[StampID] BETWEEN 1 AND 5
+--AND [StampName] = 'Inverted Alison'
 WITH CHECK OPTION
-GO
 
-SELECT * FROM [dbo].[vwStamps] WHERE StampID IN (2, 4)
 GO
 
 BEGIN TRANSACTION
 
-UPDATE [dbo].[vwStamps]
-SET StampID = StampID + 10
-WHERE StampID = 2
+	--UPDATE [dbo].[vw_Stamps]
+	--SET [StampName] = 'Chaanyah Laborde'
+	--WHERE [StampName] = 'Inverted Alison'
 
-DELETE FROM [dbo].[vwStamps] WHERE StampID = 2
+	UPDATE [dbo].[vw_Stamps]
+	SET [StampID] = [StampID] - 1
+	WHERE [StampID] = 2
 
-SELECT * FROM [dbo].[tblStampNames]
-SELECT * FROM [dbo].[tblStampPurchases]
+	--SELECT * FROM [dbo].[vw_Stamps]
+	SELECT * FROM [dbo].[tblStampNames]
 
 ROLLBACK TRANSACTION
+
+BEGIN TRANSACTION
+
+	DROP TABLE [dbo].[tblStampPurchases]
+
+ROLLBACK TRANSACTION
+
+SELECT * FROM vw_Stamps WHERE [StampID] IN (2, 4)
 GO
 
 -- Procedures
