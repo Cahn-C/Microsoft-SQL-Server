@@ -22,11 +22,19 @@ CREATE TABLE [dbo].[tblTransaction] (
 	--DateOfEntry DATETIME NULL CONSTRAINT DEF_tblTransaction_DateOfEntry DEFAULT GETDATE()
 )
 
--- 
+-- Add a new column called Department with a datatype of varchar(50)
 ALTER TABLE [dbo].[tblEmployee] ADD Department VARCHAR(50) NULL
+
+-- Add a primary key constraint name PK_tblEmployee_EmployeeNumber
 ALTER TABLE [dbo].[tblEmployee] ADD CONSTRAINT PK_tblEmployee_EmployeeNumber PRIMARY KEY (EmployeeNumber)
+
+-- Add a unique constraint name UK_tblEmployee_EmployeeGovernmentID
 ALTER TABLE [dbo].[tblEmployee] ADD CONSTRAINT UK_tblEmployee_EmployeeGovernmentID UNIQUE (EmployeeGovernmentID)
+
+-- Add a check constraint name CK_tblEmployee_DateOfBirth that allows only ages 18 and up and ignores the existing columns in the table 
 ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_DateOfBirth CHECK (DateOfBirth BETWEEN DATEADD(YEAR, -18, GETDATE()) AND GETDATE())
+
+-- Add a check constraint name CK_tblEmployee_EmployeeMiddleName that ignores the existing columns in the table
 ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_EmployeeMiddleName CHECK (REPLACE(EmployeeMiddleName,'.', '') = EmployeeMiddleName OR EmployeeMiddleName IS NULL)
 
 ALTER TABLE [dbo].[tblTransaction] ADD DateOfEntry DATETIME
