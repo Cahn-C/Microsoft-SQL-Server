@@ -22,8 +22,21 @@ ROLLBACK TRANSACTION
 ALTER TABLE [dbo].[tblStampNames] ADD [Rarity] VARCHAR(20) NULL
 ALTER TABLE [dbo].[tblStampNames] ALTER COLUMN [Rarity] VARCHAR(30)
 ALTER TABLE [dbo].[tblStampNames] DROP COLUMN [Rarity]
+ALTER TABLE [dbo].[tblStampNames] ADD CONSTRAINT DF_tblStampNames_StampCountry DEFAULT 'Unknown' FOR [StampCountry]
+ALTER TABLE [dbo].[tblStampNames] ADD CONSTRAINT UQ_tblStampNames_StampName_StampYear UNIQUE ([StampName], [StampYear])
+ALTER TABLE [dbo].[tblStampNames] WITH NOCHECK ADD CONSTRAINT CK_tblStampNames_StampYear CHECK ([StampYear] > 1800)
 
-SP_HELP '[dbo].[tblStampNames]'
+INSERT INTO [dbo].[tblStampNames]([StampID], [StampName], [StampYear]) VALUES (11, 'Chaanyah', 1999)
+INSERT INTO [dbo].[tblStampNames]([StampID], [StampName], [StampYear], [StampCountry]) VALUES (12, 'Saint Luis', 1999, 'USA')
+INSERT INTO [dbo].[tblStampNames]([StampID], [StampName], [StampYear], [StampCountry]) VALUES (13, 'Saint Luis', 1989, 'USA')
+INSERT INTO [dbo].[tblStampNames]([StampID], [StampName], [StampYear], [StampCountry]) VALUES(14, 'Wills IV', 1820, 'UK')
+INSERT INTO [dbo].[tblStampNames]([StampID], [StampName], [StampYear]) VALUES(15, 'Wills III', 1820)
+
+
+SELECT * FROM [dbo].[tblStampNames]
+
+EXEC SP_HELP '[dbo].[tblStampNames]'
+
 
 SELECT * FROM [dbo].[tblStampNames]
 
@@ -34,7 +47,8 @@ ALTER TABLE [dbo].[tblStampPurchases] DROP COLUMN [PurchaseID]
 ALTER TABLE [dbo].[tblStampPurchases] DROP CONSTRAINT PK_tblStampPurchases_PurchaseID
 ALTER TABLE [dbo].[tblStampPurchases] DROP CONSTRAINT [PK__tblStamp__6B0A6BDE4C44F754]
 
-SP_HELP '[dbo].[tblStampPurchases]'
+EXEC SP_HELP '[dbo].[tblStampPurchases]'
+	
 
 SELECT * FROM [dbo].[tblStampPurchases]
 
