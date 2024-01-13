@@ -37,11 +37,24 @@ ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_DateO
 -- Add a check constraint name CK_tblEmployee_EmployeeMiddleName that ignores the existing columns in the table
 ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_EmployeeMiddleName CHECK (REPLACE(EmployeeMiddleName,'.', '') = EmployeeMiddleName OR EmployeeMiddleName IS NULL)
 
+-- Add a new column called DateOfEntry
 ALTER TABLE [dbo].[tblTransaction] ADD DateOfEntry DATETIME
+
+-- Modify the column EmployeeNumber to a NOT NULL data type
 ALTER TABLE [dbo].[tblTransaction] ALTER COLUMN EmployeeNumber INT NOT NULL
+
+-- Add a foreign key constraint to column EmployeeNumber, the with nocheck constraint will ensure that the foereign key will be added to the already existing table.
 ALTER TABLE [dbo].[tblTransaction] WITH NOCHECK ADD CONSTRAINT FK_tblTransaction_EmployeeNumber FOREIGN KEY (EmployeeNumber) REFERENCES [dbo].[tblEmployee](EmployeeNumber) --ON UPDATE CASCADE ON DELETE CASCADE
+
+/* Add a UNIQUE constraint to ensure that the Amount, DateOfTransaction and EMployeeNumber columns are different from each other
+   This will help prevent any scams, and help identify any fraudulent activities
+*/
 ALTER TABLE [dbo].[tblTransaction] ADD CONSTRAINT UK_tblTransaction_Transactions UNIQUE (Amount, DateOfTransaction, EmployeeNumber)
+
+-- Add a DEFAULT constraint to column DateOfEntry, this will help me a better idea on when the transactions were made 
 ALTER TABLE [dbo].[tblTransaction] ADD CONSTRAINT DEF_tblTransaction_DateOfEntry DEFAULT GETDATE() FOR DateOfEntry
+
+-- Drop the constraint
 ALTER TABLE [dbo].[tblTransaction] DROP CONSTRAINT [DEF_tblTransaction_DateOfEnrtry]
 
 
