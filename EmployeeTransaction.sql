@@ -1,8 +1,6 @@
 USE [70-461]
 
-SELECT *, DATEADD(YEAR, -18, GETDATE()), DATEDIFF(YEAR, DateOfBirth, GETDATE())
-FROM [dbo].[tblEmployee]
-
+-- Create the Employees table
 CREATE TABLE [dbo].[tblEmployee] (
 	EmployeeNumber INT NOT NULL,
 	EmployeeFirstName VARCHAR(50) NOT NULL,
@@ -14,6 +12,8 @@ CREATE TABLE [dbo].[tblEmployee] (
 -- CONSTRAINT CK_tblEmployee_DateOfBirth CHECK (DateOfBirth BETWEEN DATEADD(YEAR, -18, GETDATE()) AND GETDATE())
 )
 
+	
+-- Create the Transactoin table
 CREATE TABLE [dbo].[tblTransaction] (
 	Amount SMALLMONEY NOT NULL,
 	DateOfTransaction SMALLDATETIME NOT NULL,
