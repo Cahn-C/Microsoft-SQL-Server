@@ -2598,7 +2598,7 @@ UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Bryan' WHERE Department = '
 -- Creig has moved to department HR
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Creig' WHERE Department = 'HR'
 
---
+-- Test records
 UPDATE [dbo].[tblTransaction] SET Amount = 767.98 WHERE Amount = 1.00
 UPDATE [dbo].[tblTransaction] SET Amount = 987.24 WHERE Amount = 2.00
 UPDATE [dbo].[tblTransaction] SET Amount = 97.24 WHERE Amount = 987.24
@@ -2609,17 +2609,19 @@ SELECT * FROM [dbo].[tblEmployee]
 SELECT * FROM [dbo].[tblTransaction]
 SELECT * FROM [dbo].[tblDepartment]
 
+-- Get the total amount of salary from each employee
 SELECT E.EmployeeNumber,
-	   E.EmployeeFirstName,
-	   E.EmployeeLastName,
-	   FORMAT(SUM(T.Amount), 'C') AS TotalAoumnt
+       E.EmployeeFirstName,
+       E.EmployeeLastName,
+       FORMAT(SUM(T.Amount), 'C') AS TotalAoumnt
 FROM [dbo].[tblEmployee] E 
 LEFT JOIN [dbo].[tblTransaction] T
 ON E.EmployeeNumber = T.EmployeeNumber
 GROUP BY E.EmployeeNumber,
-		 E.EmployeeFirstName,
-		 E.EmployeeLastName
+	 E.EmployeeFirstName,
+ 	 E.EmployeeLastName
 
+-- Get the total number of each departments
 SELECT Department FROM (
 	SELECT Department, COUNT(*) AS NumberPerDepartments  
 	FROM [dbo].[tblEmployee]
@@ -2628,9 +2630,10 @@ SELECT Department FROM (
 
 SELECT DISTINCT Department, CAST('' AS VARCHAR(20)) AS DepartmentHeader INTO [dbo].[tblDepartment] FROM [dbo].[tblEmployee]
 
+-- Get the total amount from each department
 SELECT D.Department, 
-	   D.DepartmentHeader, 
-	   SUM(T.Amount) AS TotalAmount
+       D.DepartmentHeader, 
+       SUM(T.Amount) AS TotalAmount
 FROM [dbo].[tblDepartment] D
 LEFT JOIN [dbo].[tblEmployee] E 
 ON  E.Department = D.Department
@@ -2639,7 +2642,7 @@ ON E.EmployeeNumber = T.EmployeeNumber
 GROUP BY D.Department, D.DepartmentHeader
 ORDER BY TotalAmount DESC
 
-
+-- Transactions to delete all null values from the transaction table linked to the employees table 
 BEGIN TRANSACTION
 
 	SELECT COUNT(*) FROM [dbo].[tblTransaction]
@@ -2648,19 +2651,19 @@ BEGIN TRANSACTION
 	WHERE EmployeeNumber IN (
 		SELECT TNumber FROM (
 			SELECT ENumber = E.EmployeeNumber,
-				   E.EmployeeFirstName,
-				   E.EmployeeLastName,
-				   TNumber = T.EmployeeNumber,
-				   TotalAmount = SUM(t.Amount)
+			       E.EmployeeFirstName,
+			       E.EmployeeLastName,
+			       TNumber = T.EmployeeNumber,
+			       TotalAmount = SUM(t.Amount)
 			FROM [dbo].[tblDepartment] D
 			RIGHT JOIN [dbo].[tblEmployee] E
 			ON D.Department = E.Department
 			RIGHT JOIN [dbo].[tblTransaction] T
 			ON E.EmployeeNumber = T.EmployeeNumber
 			GROUP BY E.EmployeeNumber,
-					 E.EmployeeFirstName,
-					 E.EmployeeLastName,
-					 T.EmployeeNumber
+			         E.EmployeeFirstName,
+			 	 E.EmployeeLastName,
+		 		 T.EmployeeNumber
 	) X
 	WHERE ENumber IS NULL
 	)
