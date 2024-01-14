@@ -2580,13 +2580,13 @@ INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber) VA
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber, DateOfEntry) VALUES (1, '2015-01-01', 1, '2022-05-21')
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber, DateOfEntry) VALUES (2, '2015-01-01', 1, '2019-12-31')
 
--- 
+-- Add a record into the Department table
 INSERT INTO [dbo].[tblDepartment] VALUES ('Accountant', 'James')
 
--- 
-UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE  EmployeeMiddleName = ''
+-- Change all employee middle's to NULL
+UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE EmployeeMiddleName = ''
 
--- 
+-- Andrew has moved to department Litigation
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Litigation'
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Customer Relations'
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Bryan' WHERE Department = 'Commercial'
