@@ -2588,8 +2588,14 @@ UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE EmployeeMiddleNam
 
 -- Andrew has moved to department Litigation
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Litigation'
+
+-- Andrew has moved to department Customer Relation
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Customer Relations'
+
+-- Bryan has moved to department Commercial
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Bryan' WHERE Department = 'Commercial'
+
+-- Creig has moved to department HR
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Creig' WHERE Department = 'HR'
 
 --
