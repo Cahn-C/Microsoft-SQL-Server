@@ -69,7 +69,7 @@ TRUNCATE TABLE [dbo].[tblTransaction]
 INSERT INTO [dbo].[tblTransaction] VALUES (1, '2014-01-01', 1)
 INSERT INTO [dbo].[tblTransaction] VALUES (1, '2014-01-01', 1)
 
---
+-- Add records into the Employees table
 INSERT INTO [dbo].[tblEmployee] VALUES (132, 'Dylan', 'A', 'Word', 'HN5137777D', '1992-09-14', 'Customer Relations')
 INSERT INTO [dbo].[tblEmployee] VALUES (131, 'Jossef', 'H', 'Wright', 'TX593671R', '19711224', 'Litigation')
 INSERT INTO [dbo].[tblEmployee] VALUES (133, 'Mson', 'T', 'Holliday', 'TX603671R', '2006-10-21', 'Customer Relations')
