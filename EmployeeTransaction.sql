@@ -58,7 +58,10 @@ ALTER TABLE [dbo].[tblTransaction] ADD CONSTRAINT DEF_tblTransaction_DateOfEntry
 ALTER TABLE [dbo].[tblTransaction] DROP CONSTRAINT [DEF_tblTransaction_DateOfEnrtry]
 
 
+-- Delete all rows in the Employee table
 TRUNCATE TABLE [dbo].[tblEmployee]
+
+-- Delete all rows in teh Transaction table
 TRUNCATE TABLE [dbo].[tblTransaction]
 
 -- Test the constraint results
