@@ -76,7 +76,7 @@ INSERT INTO [dbo].[tblEmployee] VALUES (133, 'Mson', 'T', 'Holliday', 'TX603671R
 INSERT INTO [dbo].[tblEmployee] VALUES (134, 'Derrick', NULL, 'Jefferson', 'HA603671R', '2010-11-11', 'Customer Relations')
 INSERT INTO [dbo].[tblEmployee] VALUES (135, 'Barry', 'R', 'Williamson', 'DA603771R', '2010-11-11', 'Customer Relations')
 
---
+-- Add records into the Transaction table
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber) VALUES (-964.05, '20150526', 658) 
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber) VALUES (-105.23, '20150914', 987) 
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber) VALUES (-506.8, '20150505', 695) 
