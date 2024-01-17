@@ -1,47 +1,53 @@
 -- Exercise 1
--- Check to make sure that there is at least one item in the order with an order quabtity greater than 500
-select PurchaseOrderID,
-       OrderDate,
-       SubTotal,
-       TaxAmt
-from Purchasing.PurchaseOrderHeader h
-where exists (select 1 from Purchasing.PurchaseOrderDetail d 
-	      where OrderQty > 500 
-	      and d.PurchaseOrderID = h.PurchaseOrderID)
-order by PurchaseOrderID
+SELECT PurchaseOrderID,
+	   OrderDate,
+	   SubTotal,
+	   TaxAmt
+FROM [Purchasing].[PurchaseOrderHeader] POH
+WHERE EXISTS (SELECT 1 FROM [Purchasing].[PurchaseOrderDetail] POD 
+	          WHERE POD.PurchaseOrderID = POH.PurchaseOrderID 
+			  AND OrderQty > 500)
+ORDER BY PurchaseOrderID
 
--- Confirm that the records in the above query is correct
-select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where OrderQty > 500
+SELECT POH.PurchaseOrderID,
+	   OrderDate,
+	   SubTotal,
+	   TaxAmt
+FROM [Purchasing].[PurchaseOrderHeader] POH
+JOIN [Purchasing].[PurchaseOrderDetail] POD
+ON POH.PurchaseOrderID = POD.PurchaseOrderID
+WHERE POD.OrderQty > 500
+
 
 
 -- Exercise 2
--- Check to make sure that there is at least one item in the order with an order quabtity greater than 500 and the unit price is greater than 50
-select PurchaseOrderID,
-       OrderDate,
-       SubTotal,
-       TaxAmt
-from Purchasing.PurchaseOrderHeader h
-where exists (select 1 from Purchasing.PurchaseOrderDetail d 
-	      where OrderQty > 500 
-	      and UnitPrice > 50
-	      and d.PurchaseOrderID = h.PurchaseOrderID)
-order by PurchaseOrderID
+SELECT * FROM [Purchasing].[PurchaseOrderHeader] POH
+WHERE EXISTS (SELECT 1 FROM [Purchasing].[PurchaseOrderDetail] POD 
+			  WHERE POD.PurchaseOrderID = POH.PurchaseOrderID 
+			  AND OrderQty > 500 
+			  AND UnitPrice > 50)
+ORDER BY 1
 
--- Confirm that the records in the above query is correct
-select PurchaseOrderID, OrderQty from Purchasing.PurchaseOrderDetail where OrderQty > 500 and UnitPrice > 50
+SELECT POH.*
+FROM [Purchasing].[PurchaseOrderHeader] POH
+JOIN [Purchasing].[PurchaseOrderDetail] POD
+ON POH.PurchaseOrderID = POD.PurchaseOrderID
+WHERE POD.OrderQty > 500
+AND UnitPrice > 50
+ORDER BY 1
+
 
 
 -- Exercise 3
--- Check to make sure that there are NO items within an order that does not have a rejected quantity 
-select PurchaseOrderID,
-       OrderDate,
-       SubTotal,
-       TaxAmt
-from Purchasing.PurchaseOrderHeader h
-where not exists (select 1 from Purchasing.PurchaseOrderDetail d 
-		  where RejectedQty > 0
-		  and d.PurchaseOrderID = h.PurchaseOrderID)
-order by PurchaseOrderID
+SELECT * FROM [Purchasing].[PurchaseOrderHeader] POH
+WHERE NOT EXISTS (SELECT 1 FROM [Purchasing].[PurchaseOrderDetail] POD 
+				  WHERE POD.PurchaseOrderID = POH.PurchaseOrderID 
+				  AND RejectedQty > 0)
+ORDER BY 1
 
--- Confirm that the records in the above query is correct
-select PurchaseOrderID, RejectedQty from Purchasing.PurchaseOrderDetail where RejectedQty = 0
+SELECT POH.*
+FROM [Purchasing].[PurchaseOrderHeader] POH
+JOIN [Purchasing].[PurchaseOrderDetail] POD
+ON POH.PurchaseOrderID = POD.PurchaseOrderID
+WHERE RejectedQty <= 0
+ORDER BY 1
