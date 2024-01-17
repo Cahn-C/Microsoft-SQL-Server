@@ -1,72 +1,36 @@
 -- Compare the total amount of all sales and purchases at the start of each month
--- Starting code for CTE
-select A.OrderMonth,
-       A.TotalSales,
-       B.TotalPurchases
-from (
-	select OrderMonth,
-	       sum(TotalDue) as TotalSales
-	from (
-		select OrderDate,
-	               TotalDue,
-	               OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-		       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
-		from Sales.SalesOrderHeader
-	) TopTenOrders
-	where OrderRank <= 10
-	group by OrderMonth
-) A
-left join (
-	select OrderMonth,
-	       sum(TotalDue) as TotalPurchases
-	from (
-		select OrderDate,
-	               TotalDue,
-	               OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-	               OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
-		from Purchasing.PurchaseOrderHeader
-	) TopTenOrders
-	where OrderRank <= 10
-	group by OrderMonth
-) B
-on A.OrderMonth = B.OrderMonth
-order by 1 asc
-GO
-
--- Same code as the subquery above, but in a CTE
-with RankingSales as (
-	select OrderDate,
-	       TotalDue,
-	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
-	from Sales.SalesOrderHeader
+WITH Sales AS (
+	SELECT OrderDate
+		  ,OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1)
+		  ,TotalDue
+		  ,OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+	FROM AdventureWorks2019.Sales.SalesOrderHeader
 ),
-OrderMonthlySales as (
-	select OrderMonth, 
-               sum(TotalDue) as TotalSales 
-	from RankingSales
-	where OrderRank <= 10
-	group by OrderMonth
+MinusTop10Sales AS (
+	SELECT OrderMonth,
+		   TotalSales = SUM(TotalDue)
+	FROM Sales
+	WHERE OrderRank > 10
+	GROUP BY OrderMonth
 ),
-RankingPurchases as (
-	select OrderDate,
-	       TotalDue,
-	       OrderMonth = datefromparts(year(OrderDate), month(OrderDate), 1),
-	       OrderRank = row_number() over(partition by datefromparts(year(OrderDate), month(OrderDate), 1) order by TotalDue)
-	from Purchasing.PurchaseOrderHeader
+Purchases AS (
+	SELECT OrderDate
+		  ,OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1)
+		  ,TotalDue
+		  ,OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+	FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader
 ),
-OrderMonthlyPurchases as (
-	select OrderMonth,
-	       sum(TotalDue) as TotalPurchases
-	from RankingPurchases
-	group by OrderMonth
-),
-TotalSalesAndPurchases as (
-	select oms.OrderMonth,
-	       oms.TotalSales,
-	       omp.TotalPurchases
-	from OrderMonthlySales oms
-	left join OrderMonthlyPurchases omp
-	on oms.OrderMonth = omp.OrderMonth
+MiunsTop10Purchases AS (
+	SELECT OrderMonth,
+		   TotalPurchases = SUM(TotalDue)
+	FROM Purchases
+	WHERE OrderRank > 10
+	GROUP BY OrderMonth
 )
-select * from TotalSalesAndPurchases order by 1 asc
+SELECT S.OrderMonth,
+	   TotalSales,
+	   TotalPurchases
+FROM MinusTop10Sales S 
+JOIN MiunsTop10Purchases P
+ON S.OrderMonth = P.OrderMonth
+ORDER BY 1
