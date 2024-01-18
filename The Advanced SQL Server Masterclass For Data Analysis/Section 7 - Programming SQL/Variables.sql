@@ -14,4 +14,3 @@ SELECT
       ,PercentOfMaxVacationHours = (VacationHours * 1.0) / @vacationHours
 FROM AdventureWorks2017.HumanResources.Employee
 WHERE (VacationHours * 1.0) / @vacationHours >= 0.8
-
