@@ -1,6 +1,7 @@
 USE [AdventureWorks2019]
 GO
 
+-- Pulls all orders with a threshold that is greater than the total due along with specified order dates
 CREATE OR ALTER PROCEDURE Sales.OrdersAboveThreshold(@Threshold MONEY, @StartYear INT, @EndYear INT) AS
 BEGIN
 	SELECT SalesOrderID,
