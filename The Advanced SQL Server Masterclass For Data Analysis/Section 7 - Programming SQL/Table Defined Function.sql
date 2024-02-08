@@ -1,7 +1,7 @@
-USE [AdventureWorks2019]
+yUSE [AdventureWorks2019]
 GO
 
-CREATE FUNCTION Production.ufnProductsByPriceRange(@MinPrice DECIMAL(7,2), @MaxPrice DECIMAL(7,2)) RETURNS TABLE
+CREATE FUNCTION Production.ufnProductsByPriceRange(@MinPrice MONEY, @MaxPrice MONEY) RETURNS TABLE
 AS
 RETURN (
 	SELECT ProductID,
