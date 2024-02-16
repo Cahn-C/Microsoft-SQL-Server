@@ -1,7 +1,7 @@
 USE [AdventureWorks2019]
 GO
 
---
+-- Get the data from the following tables
 SELECT * FROM [Person].[Person]
 SELECT * FROM [HumanResources].[Employee]
 SELECT * FROM [HumanResources].[EmployeePayHistory]
