@@ -6,7 +6,8 @@ SELECT * FROM [Person].[Person]
 SELECT * FROM [HumanResources].[Employee]
 SELECT * FROM [HumanResources].[EmployeePayHistory]
 
--- 
+       
+-- Get the average rate with all of the employees information
 SELECT A.FirstName,
        A.LastName,
        B.JobTitle,
@@ -19,7 +20,7 @@ JOIN [HumanResources].[EmployeePayHistory] C
 ON B.BusinessEntityID = C.BusinessEntityID
 
 
---
+-- Get the maximum rate with all of the employees information
 SELECT A.FirstName,
        A.LastName,
        B.JobTitle,
@@ -33,7 +34,7 @@ JOIN [HumanResources].[EmployeePayHistory] C
 ON B.BusinessEntityID = C.BusinessEntityID
 
 
---
+-- Get the difference from the employee rate and the average rate with all of the employee information
 SELECT A.FirstName,
        A.LastName,
        B.JobTitle,
@@ -48,7 +49,7 @@ JOIN [HumanResources].[EmployeePayHistory] C
 ON B.BusinessEntityID = C.BusinessEntityID
 
 
--- 
+-- Get the percentage of the rate with all of the employees information
 SELECT A.FirstName,
        A.LastName,
        B.JobTitle,
