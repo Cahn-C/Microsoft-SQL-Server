@@ -9,12 +9,12 @@ SELECT A.OrderMonth,
 	   PreviousTopTenTotal = B.TopTenTotal
 FROM (
 	SELECT OrderMonth,
-		   TopTenTotal = SUM(TotalDue)
+	       TopTenTotal = SUM(TotalDue)
 	FROM (
 		SELECT OrderDate,
-			   TotalDue,
-			   OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
-			   OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
+		       TotalDue,
+		       OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
+	               OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
 		FROM [AdventureWorks2019].[Sales].[SalesOrderHeader]
 	) Sales
 	WHERE OrderRank <= 10
