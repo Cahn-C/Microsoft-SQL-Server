@@ -164,7 +164,7 @@ INSERT INTO #Purchases (
 	TotalPurchases
 )
 SELECT OrderMonth,
-	   TotalPurchases = SUM(TotalDue)
+       TotalPurchases = SUM(TotalDue)
 FROM (
 	SELECT OrderDate,
 	       OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
