@@ -5,8 +5,8 @@ USE [AdventureWorks2019]
 	Get and compare the previous top ten sales per month
 */
 SELECT A.OrderMonth,
-	   A.TopTenTotal,
-	   PreviousTopTenTotal = B.TopTenTotal
+       A.TopTenTotal,
+       PreviousTopTenTotal = B.TopTenTotal
 FROM (
 	SELECT OrderMonth,
 	       TopTenTotal = SUM(TotalDue)
