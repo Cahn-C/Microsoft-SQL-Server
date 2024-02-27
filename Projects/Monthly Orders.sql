@@ -61,23 +61,23 @@ SalesMinusTopTen AS (
 -- Rank each month based on greatest total amount due for every purchase made
 PurchasesCTE AS (
 	SELECT OrderDate,
-		   OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
-		   TotalDue,
-		   OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
+	       OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
+	       TotalDue,
+	       OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
 	FROM [AdventureWorks2019].[Purchasing].[PurchaseOrderHeader]
 ),
 -- Get the total of purchases for each order month excluding the top ten sales
 PurchasesMinusTopTen AS (
 	SELECT OrderMonth,
-		   TotalPurchases = SUM(TotalDue)
+	       TotalPurchases = SUM(TotalDue)
 	FROM PurchasesCTE
 	WHERE OrderRank > 10
 	GROUP BY OrderMonth
 )
 -- Compare the total amount of sales to the total amount of purchases for every month
 SELECT pur.OrderMonth,
-	   TotalSales = FORMAT(TotalSales, 'C'),
-	   TotalPurchases = FORMAT(TotalPurchases, 'C')
+       TotalSales = FORMAT(TotalSales, 'C'),
+       TotalPurchases = FORMAT(TotalPurchases, 'C')
 FROM SalesMinusTopTen sal INNER JOIN PurchasesMinusTopTen pur
 ON sal.OrderMonth = pur.OrderMonth
 ORDER BY sal.OrderMonth
@@ -91,7 +91,7 @@ ORDER BY sal.OrderMonth
 	SALES
 */
 SELECT OrderMonth,
-	   TotalSales = SUM(TotalDue)
+       TotalSales = SUM(TotalDue)
 INTO #Sales
 FROM (
 	SELECT OrderDate,
