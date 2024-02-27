@@ -53,7 +53,7 @@ WITH SalesCTE AS (
 -- Get the total of sales for each order month excluding the top ten sales
 SalesMinusTopTen AS (
 	SELECT OrderMonth,
-		   TotalSales = SUM(TotalDue)
+	       TotalSales = SUM(TotalDue)
 	FROM SalesCTE
 	WHERE OrderRank > 10
 	GROUP BY OrderMonth
