@@ -112,9 +112,9 @@ SELECT OrderMonth,
 INTO #Purchases
 FROM (
 	SELECT OrderDate,
-		   OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
-		   TotalDue,
-		   OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
+	       OrderMonth = DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1),
+	       TotalDue,
+      	       OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate), MONTH(OrderDate), 1) ORDER BY TotalDue DESC)
 	FROM [AdventureWorks2019].[Purchasing].[PurchaseOrderHeader]
 ) X
 WHERE OrderRank > 10
@@ -125,8 +125,8 @@ GROUP BY OrderMonth
 	For better readability I formatted the total sales and total purchases columns
 */
 SELECT s.OrderMonth,
-	   TotalSales = FORMAT(s.TotalSales, 'C'),
-	   TotalPurchases = FORMAT(p.TotalPurchases, 'C')
+       TotalSales = FORMAT(s.TotalSales, 'C'),
+       TotalPurchases = FORMAT(p.TotalPurchases, 'C')
 FROM #Sales s INNER JOIN #Purchases p
 ON s.OrderMonth = p.OrderMonth
 ORDER BY 1
