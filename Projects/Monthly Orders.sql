@@ -103,11 +103,12 @@ FROM (
 WHERE OrderRank > 10
 GROUP BY OrderMonth
 
+	
 /*
 	PURCHASES
 */
 SELECT OrderMonth,
-	   TotalPurchases = SUM(TotalDue)
+       TotalPurchases = SUM(TotalDue)
 INTO #Purchases
 FROM (
 	SELECT OrderDate,
