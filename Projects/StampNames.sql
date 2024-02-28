@@ -1,18 +1,24 @@
 USE [DatabaseFundamentals]
 
+--
 CREATE TABLE [dbo].[tblStampAnalysis] (
 	[StampCountry] VARCHAR(50) NOT NULL,
 	[PurchasePrice] SMALLMONEY
 )
 
+-- 
 DROP TABLE [dbo].[tblStampAnalysis]
 
+	
+-- 
 INSERT INTO [dbo].[tblStampAnalysis]
 SELECT [StampCountry], 
-	   [PurchasePrice]
+       [PurchasePrice]
 FROM [dbo].[tblStampNames] sn INNER JOIN [dbo].[tblStampPurchases] sp
 ON sn.[StampID] = sp.[StampID]
 
+
+-- 
 SELECT [StampCountry], 
 	   [PurchasePrice]
 INTO [dbo].[tblStampAnalysis]
@@ -20,9 +26,11 @@ FROM [dbo].[tblStampNames] sn
 JOIN [dbo].[tblStampPurchases] sp
 ON sn.[StampID] = sp.[StampID]
 
+-- 
 SELECT * FROM [dbo].[tblStampNames] 
 SELECT * FROM [dbo].[tblStampPurchases]
 SELECT * FROM [dbo].[tblStampAnalysis]
+
 
 
 -- Transactions
@@ -48,21 +56,27 @@ BEGIN TRANSACTION
 ROLLBACK TRANSACTION
 
 
-
+-- 
 ALTER TABLE [dbo].[tblTransaction] ADD [TransactionID] INT IDENTITY(1, 1)
+
+-- 
 ALTER TABLE [dbo].[tblTransaction] DROP COLUMN [TransactionID]
 
+-- 
 ALTER TABLE [dbo].[tblTransaction] ADD CONSTRAINT PK_tblTransactions_TransactionID PRIMARY KEY ([TransactionID])
 
+-- 
 ALTER TABLE [dbo].[tblTransaction] WITH NOCHECK ADD CONSTRAINT FK_tblTransactions_EmployeeNumber
 FOREIGN KEY ([EmployeeNumber]) REFERENCES [dbo].[tblEmployee] ([EmployeeNumber])
 ON DELETE CASCADE
 ON UPDATE CASCADE
 
+-- 
 ALTER TABLE [dbo].[tblTransaction] DROP CONSTRAINT [FK_tblTransactions_TransactionID]
 ALTER TABLE [dbo].[tblTransaction] DROP CONSTRAINT [PK_tblTransaction_Amount_DateOfTransaction]
 
 
+-- 
 SELECT * FROM [dbo].[tblTransaction]
 SELECT * FROM [dbo].[tblEmployee]
 
@@ -92,11 +106,13 @@ BEGIN TRANSACTION
 ROLLBACK TRANSACTION
 
 
+-- 
 SELECT * FROM [dbo].[tblStampNames]
 SELECT * FROM [dbo].[tblStampPurchases]
 SELECT * FROM [dbo].[tblStampAnalysis]
 SELECT * FROM [dbo].[tblStampNameUpdate]
 GO
+
 
 -- Views
 
@@ -109,6 +125,7 @@ SELECT * FROM vwMyView
 GO
 
 
+-- 
 CREATE OR ALTER VIEW vwStamps WITH SCHEMABINDING AS
 SELECT SN.[StampID]
       ,SN.[StampName]
@@ -123,9 +140,12 @@ WHERE SN.StampID BETWEEN 1 AND 5
 WITH CHECK OPTION
 GO
 
+
+-- 
 SELECT * FROM [dbo].[vwStamps] WHERE StampID IN (2, 4)
 GO
 
+-- 
 BEGIN TRANSACTION
 
 UPDATE [dbo].[vwStamps]
@@ -139,6 +159,8 @@ SELECT * FROM [dbo].[tblStampPurchases]
 
 ROLLBACK TRANSACTION
 GO
+
+
 
 -- Procedures
 
@@ -154,6 +176,7 @@ BEGIN
 END
 GO
 
+-- 
 CREATE OR ALTER PROC proc_StampPurchasePrice (@StampIDFrom INT, @StampIDTo INT) AS
 SELECT *, [dbo].[fn_StampPurchasePrice](StampID) AS NumberOfPurchases 
 FROM [dbo].[tblStampNames]
@@ -161,6 +184,7 @@ WHERE StampID BETWEEN @StampIDFrom AND @StampIDTo
 GO
 
 EXEC proc_StampPurchasePrice @StampIDFrom = 2, @StampIDTo = 6
+
 
 
 -- Set Operators
