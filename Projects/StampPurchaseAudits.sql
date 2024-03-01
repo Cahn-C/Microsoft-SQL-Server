@@ -1,4 +1,4 @@
--- 
+-- Creation of the Stamp purchase audit table
 CREATE TABLE [dbo].[tblStampPurchasesAudit] (
 	[StampID] TINYINT NOT NULL,
 	[PurchaseDate] DATE NOT NULL,
