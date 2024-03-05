@@ -1,6 +1,6 @@
 USE [DatabaseFundamentals]
 
---
+-- Create a table called stamp analysis
 CREATE TABLE [dbo].[tblStampAnalysis] (
 	[StampCountry] VARCHAR(50) NOT NULL,
 	[PurchasePrice] SMALLMONEY
