@@ -3,6 +3,8 @@ USE [70-461]
 SELECT *, DATEADD(YEAR, -18, GETDATE()), DATEDIFF(YEAR, DateOfBirth, GETDATE())
 FROM [dbo].[tblEmployee]
 
+
+-- Create the Employee Table
 CREATE TABLE [dbo].[tblEmployee] (
 	EmployeeNumber INT NOT NULL,
 	EmployeeFirstName VARCHAR(50) NOT NULL,
