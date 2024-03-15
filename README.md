@@ -1,2 +1,3 @@
 # Microsoft-SQL-Server
-This repository contains all work, challenges and projects that are written in SQL Server based on my experience as a Data and Systems Analyst.
+
+Explore this repository to find SQL scripts and queries designed for data analysis tasks using SQL Server. From data extraction and transformation to advanced querying and reporting, this repository offers a comprehensive collection of SQL solutions tailored for data analysis and analytics.
