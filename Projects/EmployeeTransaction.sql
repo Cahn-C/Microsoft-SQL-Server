@@ -24,14 +24,14 @@ CREATE TABLE [dbo].[tblTransaction] (
 	--DateOfEntry DATETIME NULL CONSTRAINT DEF_tblTransaction_DateOfEntry DEFAULT GETDATE()
 )
 
--- 
+-- Modify the columns within the employee table
 ALTER TABLE [dbo].[tblEmployee] ADD Department VARCHAR(50) NULL
 ALTER TABLE [dbo].[tblEmployee] ADD CONSTRAINT PK_tblEmployee_EmployeeNumber PRIMARY KEY (EmployeeNumber)
 ALTER TABLE [dbo].[tblEmployee] ADD CONSTRAINT UK_tblEmployee_EmployeeGovernmentID UNIQUE (EmployeeGovernmentID)
 ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_DateOfBirth CHECK (DateOfBirth BETWEEN DATEADD(YEAR, -18, GETDATE()) AND GETDATE())
 ALTER TABLE [dbo].[tblEmployee] WITH NOCHECK ADD CONSTRAINT CK_tblEmployee_EmployeeMiddleName CHECK (REPLACE(EmployeeMiddleName,'.', '') = EmployeeMiddleName OR EmployeeMiddleName IS NULL)
 
--- 
+-- Modify the columns within the transaction table
 ALTER TABLE [dbo].[tblTransaction] ADD DateOfEntry DATETIME
 ALTER TABLE [dbo].[tblTransaction] ALTER COLUMN EmployeeNumber INT NOT NULL
 ALTER TABLE [dbo].[tblTransaction] WITH NOCHECK ADD CONSTRAINT FK_tblTransaction_EmployeeNumber FOREIGN KEY (EmployeeNumber) REFERENCES [dbo].[tblEmployee](EmployeeNumber) --ON UPDATE CASCADE ON DELETE CASCADE
