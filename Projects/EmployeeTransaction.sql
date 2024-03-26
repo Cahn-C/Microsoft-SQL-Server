@@ -16,6 +16,7 @@ CREATE TABLE [dbo].[tblEmployee] (
 -- CONSTRAINT CK_tblEmployee_DateOfBirth CHECK (DateOfBirth BETWEEN DATEADD(YEAR, -18, GETDATE()) AND GETDATE())
 )
 
+-- Create the transaction table
 CREATE TABLE [dbo].[tblTransaction] (
 	Amount SMALLMONEY NOT NULL,
 	DateOfTransaction SMALLDATETIME NOT NULL,
