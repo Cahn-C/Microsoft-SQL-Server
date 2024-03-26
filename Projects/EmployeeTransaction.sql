@@ -45,6 +45,7 @@ ALTER TABLE [dbo].[tblTransaction] DROP CONSTRAINT [DEF_tblTransaction_DateOfEnr
 TRUNCATE TABLE [dbo].[tblEmployee]
 TRUNCATE TABLE [dbo].[tblTransaction]
 
+
 -- Test the constraint results
 -- I will receive an error due to the UNIQUE constraint being active on all columns for the Transaction table
 INSERT INTO [dbo].[tblTransaction] VALUES (1, '2014-01-01', 1)
