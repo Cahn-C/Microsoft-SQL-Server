@@ -2562,7 +2562,7 @@ INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber) VA
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber, DateOfEntry) VALUES (1, '2015-01-01', 1, '2022-05-21')
 INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber, DateOfEntry) VALUES (2, '2015-01-01', 1, '2019-12-31')
 
--- 
+-- Insert data into the Department table
 INSERT INTO [dbo].[tblDepartment] VALUES ('Accountant', 'James')
 
 -- 
