@@ -2565,8 +2565,8 @@ INSERT INTO [dbo].[tblTransaction](Amount, DateOfTransaction, EmployeeNumber, Da
 -- Insert data into the Department table
 INSERT INTO [dbo].[tblDepartment] VALUES ('Accountant', 'James')
 
--- 
-UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE  EmployeeMiddleName = ''
+-- Replace all middle names with Null values
+UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE EmployeeMiddleName = ''
 
 -- 
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Litigation'
