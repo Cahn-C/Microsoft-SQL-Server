@@ -2568,7 +2568,7 @@ INSERT INTO [dbo].[tblDepartment] VALUES ('Accountant', 'James')
 -- Replace all middle names with Null values
 UPDATE [dbo].[tblEmployee] SET EmployeeMiddleName = NULL WHERE EmployeeMiddleName = ''
 
--- 
+-- Update the department headers for each department
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Litigation'
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Andrew' WHERE Department = 'Customer Relations'
 UPDATE [dbo].[tblDepartment] SET DepartmentHeader = 'Bryan' WHERE Department = 'Commercial'
