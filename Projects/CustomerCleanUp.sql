@@ -316,8 +316,8 @@ VALUES 	(638, '255 Irving Street', NULL, 'London', 'England', 'United Kingdom', 
 	(874, '2550 Ne Sandy Blvd', NULL, 'Portland', 'Oregon', 'United States', '97205'),
 	(875, '2540 Dell Range Blvd', NULL, 'Cheyenne', 'Wyoming', 'United States', '82001'),
 	(876, '765 Delridge Way Sw', NULL, 'Seattle', 'Washington', 'United States', '98104'),
-		(877, '4781 Highway 95', NULL, 'Sandpoint', 'Idaho', 'United States', '83864'),
-		(878, '4210 E Sprague Ave', NULL, 'Spokane', 'Washington', 'United States', '99202');
+	(877, '4781 Highway 95', NULL, 'Sandpoint', 'Idaho', 'United States', '83864'),
+	(878, '4210 E Sprague Ave', NULL, 'Spokane', 'Washington', 'United States', '99202');
 
 INSERT INTO [dbo].[Address] ( [AddressID], [AddressLine1], [AddressLine2], [City], [StateProvince], [CountryRegion], [PostalCode]) 
 VALUES 	(879, 'Valley Mall', NULL, 'Union Gap', 'Washington', 'United States', '98903'),
